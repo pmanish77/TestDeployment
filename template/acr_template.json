@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Container Registry name"
+      }
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Container Registry location"
+      }
+    },	
+    "sku": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [
+        "Basic",
+        "Standard",
+        "Premium"
+      ],
+      "metadata": {
+        "description": "Container Registry SKU"
+      }
+    },
+    "adminUserEnabled": {
+      "type": "bool",
+      "defaultValue": true,
+      "allowedValues": [
+        true,
+        false
+      ],
+      "metadata": {
+        "description": "Enable admin user"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "apiVersion": "2019-12-01-preview",
+      "type": "Microsoft.ContainerRegistry/registries",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "[parameters('sku')]",
+		"tier": "[parameters('sku')]"
+      },
+      "properties": {
+        "adminUserEnabled": "[parameters('adminUserEnabled')]",
+		"policies": {
+			"quarantinePolicy": {
+				"status": "disabled"
+			},
+			"trustPolicy": {
+				"type": "Notary",
+				"status": "disabled"
+			},
+			"retentionPolicy": {
+				"days": 7,
+				"status": "disabled"
+			}
+		},
+		"encryption": {
+			"status": "disabled"
+		},
+		"dataEndpointEnabled": false,
+		"publicNetworkAccess": "Enabled"
+      }
+    }
+  ]
+}

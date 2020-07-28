@@ -16,9 +16,6 @@
         },
 		"runtime": {
             "value": "python"
-        },
-		"GitHubBranch": {
-            "value": "master"
         }
     }
 }

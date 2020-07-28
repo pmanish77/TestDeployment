@@ -47,14 +47,7 @@
       "metadata": {
         "description": "The language worker runtime to load in the function app."
       }
-    },
-	"GitHubBranch": {
-	   "type": "string",
-	   "defaultValue": "master",
-	   "metadata": {
-			"description": "Name of the branch to use when deploying (Default = master)."
-		}
-	}
+    }
   },
     "variables": {
     "functionAppName": "[parameters('appName')]",
@@ -65,7 +58,7 @@
     "insightsLocation": {
       "AzureCloud": "[parameters('location')]"
     },
-	"repoURL": "https://github.com/pmanish77/TestDeployment.git",
+	"repoURL": "https://github.com/pmanish77/TestDeployment.git"
 	},
     "resources": [
 		{
@@ -173,7 +166,7 @@
                     ],
                     "properties": {
                         "RepoUrl": "[variables('repoURL')]",
-                        "branch": "[parameters('GitHubBranch')]",
+                        "branch": "master",
                         "publishRunbook": true,
                         "IsManualIntegration": true
                     }

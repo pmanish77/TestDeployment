@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appName": {
-            "value": "mysampleapp98765"
+            "value": "devfuncdappeploy1234"
         },
 		"funcName": {
-            "value": "mysamplefunction98765"
+            "value": "devfuncdeploy1234"
         },
 		"storageAccountType": {
             "value": "Standard_LRS"

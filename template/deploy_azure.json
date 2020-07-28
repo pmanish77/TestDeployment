@@ -15,7 +15,14 @@
            "metadata": {
                 "description": "Name of the branch to use when deploying (Default = master)."
             }
-        }
+        },
+        "MonitorStorageName": {
+            "type": "string",
+            "defaultValue": "dropzone",
+            "metadata": {
+                 "description": "Name of the storage account where the files will be drop and unziped. (Default = dropzone)."
+             }
+         }
     },
     "variables": {
         "suffix": "[substring(toLower(uniqueString(resourceGroup().id, resourceGroup().location)),0,5)]",

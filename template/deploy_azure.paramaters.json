@@ -7,6 +7,9 @@
         },
         "GitHubBranch": {
             "value": "master"
+        },
+		"MonitorStorageName": {
+            "value": "dropzone"
         }
     }
 }

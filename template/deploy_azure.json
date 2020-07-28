@@ -40,10 +40,6 @@
                 "siteConfig": {
                     "appSettings": [
                         {
-                            "name": "AzureWebJobsDashboard",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('funcStorageName'), ';AccountKey=', listKeys(variables('funcStorageName'),'2015-05-01-preview').key1)]"
-                        },
-                        {
                             "name": "AzureWebJobsStorage",
                             "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('funcStorageName'), ';AccountKey=', listKeys(variables('funcStorageName'),'2015-05-01-preview').key1)]"
                         },
@@ -101,13 +97,15 @@
             "apiVersion": "2018-02-01",
             "name": "[variables('serverFarmName')]",
             "location": "[resourceGroup().location]",
+			"kind": "linux",	
             "sku": {
                 "name": "Y1",
                 "tier": "Dynamic"
             },
             "properties": {
                 "name": "[variables('serverFarmName')]",
-                "computeMode": "Dynamic"
+                "computeMode": "Dynamic",
+				"reserved":true
             }
         }
     ],

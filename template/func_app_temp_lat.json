@@ -65,7 +65,7 @@
     "insightsLocation": {
       "AzureCloud": "[parameters('location')]"
     },
-	"repoURL": "https://github.com/pmanish77/armfunctiontest.git",
+	"repoURL": "https://github.com/pmanish77/TestDeployment.git",
 	},
     "resources": [
 		{

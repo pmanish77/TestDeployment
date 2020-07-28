@@ -22,7 +22,8 @@
         "funcAppName": "[toLower(concat(parameters('baseName'), variables('suffix')))]",
         "funcStorageName": "[tolower(concat(substring(parameters('baseName'), 0, min(length(parameters('baseName')),16)), 'stg', variables('suffix')))]",
         "serverFarmName": "[concat(substring(parameters('baseName'), 0, min(length(parameters('baseName')),14)), '-srv-', variables('suffix'))]",
-        "repoURL": "https://github.com/pmanish77/TestDeployment.git"
+        "repoURL": "https://github.com/pmanish77/TestDeployment.git",
+        "fileStorageName": "[tolower(concat(substring(parameters('MonitorStorageName'), 0, min(length(parameters('MonitorStorageName')),16)), 'stg', variables('suffix')))]"
     },
     "resources": [
         {
@@ -58,6 +59,18 @@
                         {
                             "name": "FUNCTIONS_WORKER_RUNTIME",
                             "value": "dotnet"
+                        },
+                        {
+                            "name": "cloud5mins_storage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('fileStorageName'), ';AccountKey=', listKeys(variables('fileStorageName'),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "destinationStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('fileStorageName'), ';AccountKey=', listKeys(variables('fileStorageName'),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "destinationContainer",
+                            "value": "output-files"
                         }
                     ]
                 }
@@ -107,6 +120,43 @@
                 "computeMode": "Dynamic",
 				"reserved":true
             }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2018-07-01",
+            "name": "[variables('fileStorageName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "[variables('fileStorageName')]"
+            },
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "StorageV2",
+            "resources": [
+                {
+                    "type": "blobServices/containers",
+                    "apiVersion": "2018-07-01",
+                    "name": "[concat('default/', 'input-files')]",
+                    "dependsOn": [
+                        "[variables('fileStorageName')]"
+                    ],
+                    "properties": {
+                        "publicAccess": "Blob"
+                    }
+                },
+                {
+                    "type": "blobServices/containers",
+                    "apiVersion": "2018-07-01",
+                    "name": "[concat('default/', 'output-files')]",
+                    "dependsOn": [
+                        "[variables('fileStorageName')]"
+                    ],
+                    "properties": {
+                        "publicAccess": "Blob"
+                    }
+                }
+            ]
         }
     ],
     "outputs": {}

@@ -155,23 +155,7 @@
                 "dailyMemoryTimeQuota": 0,
                 "httpsOnly": false,
                 "redundancyMode": "None"
-            },
-            "resources": [
-                {
-                    "apiVersion": "2015-08-01",
-                    "name": "web",
-                    "type": "sourcecontrols",
-                    "dependsOn": [
-                      "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
-                    ],
-                    "properties": {
-                        "RepoUrl": "[variables('repoURL')]",
-                        "branch": "master",
-                        "publishRunbook": true,
-                        "IsManualIntegration": true
-                    }
-               }
-            ]
+            }
         },
         {
             "type": "Microsoft.Web/sites/config",
